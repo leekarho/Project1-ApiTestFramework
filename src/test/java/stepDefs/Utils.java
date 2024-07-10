@@ -15,4 +15,12 @@ public class Utils {
                 .setBody(body)
                 .build();
     }
+
+    public static RequestSpecification emptyBodyRequestSpecification(String baseUri, String path) {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUri)
+                .setBasePath(path)
+                .setContentType(ContentType.JSON)
+                .build();
+    }
 }
