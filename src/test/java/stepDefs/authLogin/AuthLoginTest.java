@@ -72,4 +72,6 @@ public class AuthLoginTest {
         System.out.println(response.getStatusCode());
         MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
     }
+
+
 }

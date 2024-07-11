@@ -30,4 +30,8 @@ public class TestConfig {
         return properties.getProperty("login_path");
     }
 
+    public static String getCoursesPath() {
+        return properties.getProperty("courses_path");
+    }
+
 }
