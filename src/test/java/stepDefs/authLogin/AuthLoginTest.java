@@ -9,16 +9,14 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import pojos.PostLoginRequest;
 import stepDefs.Utils;
 import stepDefs.config.TestConfig;
 
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.*;
 
-public class AuthLoginHappyPath {
+public class AuthLoginTest {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = TestConfig.getLoginPath();
