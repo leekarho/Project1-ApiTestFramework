@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features={"src/test/resources/features"},
         glue = {"stepDefs"},
-//        tags = "@DeletePlace",
+        tags = "not @ignore",
         plugin={"pretty", "html:target/testReport.html", "json:target/jsonReport.json"},
         publish=true
 )

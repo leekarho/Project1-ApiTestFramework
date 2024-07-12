@@ -7,6 +7,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.util.Map;
+
 public class CoursesUtils {
 
     public static JSONArray parseResponseToJsonArray(Response response){
@@ -25,6 +27,14 @@ public class CoursesUtils {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
+                .build();
+    }
+
+    public static RequestSpecification getSpecificGCourseRequestSpec(String baseUri, String path, int courseId) {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUri)
+                .setBasePath(path)
+                .addPathParam("courseId", courseId)
                 .build();
     }
 }

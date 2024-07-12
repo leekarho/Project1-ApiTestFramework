@@ -69,9 +69,7 @@ public class AuthLoginTest {
 
     @Then("the HTTP status code should be {int} {string}")
     public void theHTTPStatusCodeShouldBe(int statusCode, String arg1) {
-        System.out.println(response.getStatusCode());
         MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
     }
-
 
 }
