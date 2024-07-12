@@ -37,4 +37,12 @@ public class CoursesUtils {
                 .addPathParam("courseId", courseId)
                 .build();
     }
+
+    public static RequestSpecification getSpecificGCourseRequestSpecInvalid(String baseUri, String path, String invalidId) {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUri)
+                .setBasePath(path)
+                .addPathParam("courseId", invalidId)
+                .build();
+    }
 }

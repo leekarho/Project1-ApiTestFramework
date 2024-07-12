@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Disabled;
 import pojos.Course;
 import stepDefs.config.TestConfig;
 
-import static org.hamcrest.Matchers.notNullValue;
+import java.util.List;
+import java.util.Map;
+
+import static org.hamcrest.Matchers.*;
 
 public class GetCourseById {
 
@@ -71,7 +74,24 @@ public class GetCourseById {
     @Disabled("Disabled until API is fixed to return appropriate error message, See defect report: 2")
     @And("response should include an error message")
     public void responseShouldIncludeAnErrorMessage() {
-        String message = response.jsonPath().getString("message");
+        String message = response.jsonPath().getString("errors");
+        Map<String, List<String>> errors = response.jsonPath().getMap("errors");
+        MatcherAssert.assertThat(errors, hasKey("id"));
         MatcherAssert.assertThat(message, notNullValue());
+    }
+
+    @Given("the id provided is invalid")
+    public void theIdProvidedIsInvalid() {
+        
+    }
+
+
+    @When("I send a GET request to the courses endpoint with {string}")
+    public void iSendAGETRequestToTheCoursesEndpointWith(String invalidId) {
+        response = RestAssured
+                .given(CoursesUtils.getSpecificGCourseRequestSpecInvalid(BASE_URI, COURSE_PATH, invalidId))
+                .when()
+                .get()
+                .thenReturn();
     }
 }

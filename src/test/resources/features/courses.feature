@@ -17,3 +17,9 @@ Feature: courses
     When I send a GET request to the courses endpoint with id 999
     Then HTTP status code should be 404
     And response should include an error message
+
+  Scenario: Get course by invalid id
+    Given the id provided is invalid
+    When I send a GET request to the courses endpoint with "invalid id"
+    Then HTTP status code should be 400
+    And response should include an error message
