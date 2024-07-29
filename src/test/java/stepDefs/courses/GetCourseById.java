@@ -10,6 +10,7 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;
 import pojos.Course;
+import stepDefs.ContextTest;
 import stepDefs.config.TestConfig;
 
 import java.util.List;
@@ -21,8 +22,13 @@ public class GetCourseById {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String COURSE_PATH = TestConfig.getCoursesPath() + "/{courseId}";
-    private static Response response;
+//    private static Response response;
+    ContextTest context;
     private static Course course;
+
+    public GetCourseById(ContextTest context) {
+        this.context = context;
+    }
 
     @Given("the course id {int} does not exist")
     public void theCourseIdDoesNotExist(int arg0) {
@@ -34,22 +40,22 @@ public class GetCourseById {
 
     @When("I send a GET request to the courses endpoint with id {int}")
     public void iSendAGETRequestToTheCoursesEndpointWithId(int courseId) {
-        response = RestAssured
+        context.response = RestAssured
                 .given(CoursesUtils.getSpecificGCourseRequestSpec(BASE_URI, COURSE_PATH, courseId))
                 .when()
                 .get()
                 .thenReturn();
     }
 
-    @Disabled("Temporarily disabled as non-existent id status code is returning 204, consider returning 404. See defect report: 1")
-    @Then("HTTP status code should be {int}")
-    public void httpStatusCodeShouldBe(int statusCode) {
-        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
-    }
+//    @Disabled("Temporarily disabled as non-existent id status code is returning 204, consider returning 404. See defect report: 1")
+//    @Then("HTTP status code should be {int}")
+//    public void httpStatusCodeShouldBe(int statusCode) {
+//        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
+//    }
 
     @And("the response should include the details of the course with ID {int}.")
     public void theResponseShouldIncludeTheDetailsOfTheCourseWithID(int arg0) {
-        course = response.as(Course.class);
+        course = context.response.as(Course.class);
         MatcherAssert.assertThat(course.getId(), Matchers.is(1));
         MatcherAssert.assertThat(course.getName(), Matchers.is("TECH 300"));
         MatcherAssert.assertThat(course.getStream(), Matchers.is("C# Dev"));
@@ -74,8 +80,8 @@ public class GetCourseById {
     @Disabled("Disabled until API is fixed to return appropriate error message, See defect report: 2")
     @And("response should include an error message")
     public void responseShouldIncludeAnErrorMessage() {
-        String message = response.jsonPath().getString("errors");
-        Map<String, List<String>> errors = response.jsonPath().getMap("errors");
+        String message = context.response.jsonPath().getString("errors");
+        Map<String, List<String>> errors = context.response.jsonPath().getMap("errors");
         MatcherAssert.assertThat(errors, hasKey("id"));
         MatcherAssert.assertThat(message, notNullValue());
     }
@@ -88,10 +94,15 @@ public class GetCourseById {
 
     @When("I send a GET request to the courses endpoint with {string}")
     public void iSendAGETRequestToTheCoursesEndpointWith(String invalidId) {
-        response = RestAssured
+        context.response = RestAssured
                 .given(CoursesUtils.getSpecificGCourseRequestSpecInvalid(BASE_URI, COURSE_PATH, invalidId))
                 .when()
                 .get()
                 .thenReturn();
     }
+
+//    @Then("the HTTP status code should be {int}")
+//    public void theHTTPStatusCodeShouldBe(int statusCode) {
+//        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
+//    }
 }

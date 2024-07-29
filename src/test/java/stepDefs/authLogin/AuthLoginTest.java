@@ -10,6 +10,8 @@ import io.restassured.specification.RequestSpecification;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import pojos.PostLoginRequest;
+import stepDefs.CommonSteps;
+import stepDefs.ContextTest;
 import stepDefs.Utils;
 import stepDefs.config.TestConfig;
 
@@ -20,9 +22,14 @@ public class AuthLoginTest {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = TestConfig.getLoginPath();
-    Response response;
+//    Response response;
+    ContextTest context;
     PostLoginRequest loginPayload;
     boolean isEmptyPayload = false;
+
+    public AuthLoginTest(ContextTest context) {
+        this.context = context;
+    }
 
     @Given("payload has a valid username and password")
     public void payloadHasAValidUsernameAndPassword() {
@@ -38,7 +45,7 @@ public class AuthLoginTest {
             requestSpecification = Utils.loginRequestSpecification(BASE_URI, PATH, loginPayload);
         }
 
-        response = RestAssured
+        context.response = RestAssured
                 .given(requestSpecification)
                 .when()
                 .post()
@@ -47,7 +54,7 @@ public class AuthLoginTest {
 
     @And("the response should include an authentication token")
     public void theResponseShouldIncludeAnAuthenticationToken() {
-        String token = response.jsonPath().getString("token");
+        String token = context.response.jsonPath().getString("token");
         MatcherAssert.assertThat(token, notNullValue());
     }
 
@@ -58,7 +65,7 @@ public class AuthLoginTest {
 
     @And("the response should include an error message")
     public void theResponseShouldIncludeAnErrorMessage() {
-        String message = response.jsonPath().getString("title");
+        String message = context.response.jsonPath().getString("title");
         MatcherAssert.assertThat(message, notNullValue());
     }
 
@@ -67,9 +74,9 @@ public class AuthLoginTest {
         isEmptyPayload = true;
     }
 
-    @Then("the HTTP status code should be {int} {string}")
-    public void theHTTPStatusCodeShouldBe(int statusCode, String arg1) {
-        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
-    }
+//    @Then("the HTTP status code should be {int} {string}")
+//    public void theHTTPStatusCodeShouldBe(int statusCode, String arg1) {
+//        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
+//    }
 
 }
