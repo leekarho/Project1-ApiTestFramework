@@ -22,7 +22,6 @@ public class AuthLoginTest {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = TestConfig.getLoginPath();
-//    Response response;
     ContextTest context;
     PostLoginRequest loginPayload;
     boolean isEmptyPayload = false;
@@ -54,8 +53,8 @@ public class AuthLoginTest {
 
     @And("the response should include an authentication token")
     public void theResponseShouldIncludeAnAuthenticationToken() {
-        String token = context.response.jsonPath().getString("token");
-        MatcherAssert.assertThat(token, notNullValue());
+        context.bearerToken = context.response.jsonPath().getString("token");
+        MatcherAssert.assertThat(context.bearerToken, notNullValue());
     }
 
     @Given("payload has an invalid username and password")
@@ -73,10 +72,5 @@ public class AuthLoginTest {
     public void payloadHasIsAnEmptyBody() {
         isEmptyPayload = true;
     }
-
-//    @Then("the HTTP status code should be {int} {string}")
-//    public void theHTTPStatusCodeShouldBe(int statusCode, String arg1) {
-//        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
-//    }
 
 }

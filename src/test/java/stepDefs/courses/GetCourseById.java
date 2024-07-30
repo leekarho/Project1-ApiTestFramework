@@ -22,7 +22,6 @@ public class GetCourseById {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String COURSE_PATH = TestConfig.getCoursesPath() + "/{courseId}";
-//    private static Response response;
     ContextTest context;
     private static Course course;
 
@@ -41,17 +40,11 @@ public class GetCourseById {
     @When("I send a GET request to the courses endpoint with id {int}")
     public void iSendAGETRequestToTheCoursesEndpointWithId(int courseId) {
         context.response = RestAssured
-                .given(CoursesUtils.getSpecificGCourseRequestSpec(BASE_URI, COURSE_PATH, courseId))
+                .given(CoursesUtils.getSpecificCourseRequestSpec(BASE_URI, COURSE_PATH, courseId))
                 .when()
                 .get()
                 .thenReturn();
     }
-
-//    @Disabled("Temporarily disabled as non-existent id status code is returning 204, consider returning 404. See defect report: 1")
-//    @Then("HTTP status code should be {int}")
-//    public void httpStatusCodeShouldBe(int statusCode) {
-//        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
-//    }
 
     @And("the response should include the details of the course with ID {int}.")
     public void theResponseShouldIncludeTheDetailsOfTheCourseWithID(int arg0) {
@@ -91,18 +84,13 @@ public class GetCourseById {
         
     }
 
-
     @When("I send a GET request to the courses endpoint with {string}")
     public void iSendAGETRequestToTheCoursesEndpointWith(String invalidId) {
         context.response = RestAssured
-                .given(CoursesUtils.getSpecificGCourseRequestSpecInvalid(BASE_URI, COURSE_PATH, invalidId))
+                .given(CoursesUtils.getSpecificCourseRequestSpecInvalid(BASE_URI, COURSE_PATH, invalidId))
                 .when()
                 .get()
                 .thenReturn();
     }
 
-//    @Then("the HTTP status code should be {int}")
-//    public void theHTTPStatusCodeShouldBe(int statusCode) {
-//        MatcherAssert.assertThat(statusCode, Matchers.is(response.getStatusCode()));
-//    }
 }

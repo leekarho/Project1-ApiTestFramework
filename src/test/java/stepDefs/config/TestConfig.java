@@ -34,4 +34,8 @@ public class TestConfig {
         return properties.getProperty("courses_path");
     }
 
+    public static String getSpartansPath() {
+        return  properties.getProperty("spartans_path");
+    }
+
 }

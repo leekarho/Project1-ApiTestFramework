@@ -11,12 +11,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import pojos.Course;
 import stepDefs.ContextTest;
+import stepDefs.Utils;
 import stepDefs.config.TestConfig;
 
 public class GetCourses {
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = TestConfig.getCoursesPath();
-//    private static Response response;
     ContextTest context;
     private static JSONArray responseBody;
     private static Course[] courses;
@@ -37,7 +37,7 @@ public class GetCourses {
                 .get()
                 .thenReturn();
 
-        responseBody = CoursesUtils.parseResponseToJsonArray(context.response);
+        responseBody = Utils.parseResponseToJsonArray(context.response);
     }
 
     @And("the response should include an array of all courses")
@@ -47,10 +47,5 @@ public class GetCourses {
         MatcherAssert.assertThat(firstCourse.get("name"), Matchers.is("TECH 300"));
         MatcherAssert.assertThat(courses.length, Matchers.is(5));
     }
-
-//    @Then("HTTP status code should be {int} {string}")
-//    public void httpStatusCodeShouldBe(int statusCode, String arg1) {
-//        MatcherAssert.assertThat(statusCode, Matchers.is(context.response.getStatusCode()));
-//    }
 
 }
