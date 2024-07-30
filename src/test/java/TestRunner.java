@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
         features={"src/test/resources/features"},
         glue = {"stepDefs"},
         tags = "not @ignore",
-        plugin={"pretty", "html:target/testReport.html", "json:target/jsonReport.json"},
+        plugin={"pretty", "html:cucumber-reports/testReport.html", "json:cucumber-reports/jsonReport.json"},
         publish=true
 )
 public class TestRunner {
