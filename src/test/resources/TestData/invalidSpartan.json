@@ -1,0 +1,30 @@
+{
+  "id": 3,
+  "firstName": "Paul",
+  "lastName": "McCartney",
+  "university": "Liverpool Institute for Performing Arts",
+  "course": "TECH 302",
+  "graduated": false,
+  "links": [
+    {
+      "href": "/api/Spartans/3",
+      "rel": "self",
+      "method": "GET"
+    },
+    {
+      "href": "/api/Spartans/3",
+      "rel": "update_spartan",
+      "method": "PUT"
+    },
+    {
+      "href": "/api/Spartans/3",
+      "rel": "delete_spartan",
+      "method": "DELETE"
+    },
+    {
+      "href": "/api/Courses/3",
+      "rel": "course",
+      "method": "GET"
+    }
+  ]
+}
