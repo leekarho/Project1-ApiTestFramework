@@ -11,18 +11,6 @@ import java.util.Map;
 
 public class CoursesUtils {
 
-    public static JSONArray parseResponseToJsonArray(Response response){
-
-        JSONArray responseBody = null;
-        JSONParser parser = new JSONParser();
-        try{
-            responseBody = (JSONArray) parser.parse(response.getBody().asString());
-        }catch(ParseException e){
-            e.printStackTrace();
-        }
-        return responseBody;
-    }
-
     public static RequestSpecification getCoursesRequestSpec(String baseUri, String path) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
@@ -30,7 +18,7 @@ public class CoursesUtils {
                 .build();
     }
 
-    public static RequestSpecification getSpecificGCourseRequestSpec(String baseUri, String path, int courseId) {
+    public static RequestSpecification getSpecificCourseRequestSpec(String baseUri, String path, int courseId) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
@@ -38,7 +26,7 @@ public class CoursesUtils {
                 .build();
     }
 
-    public static RequestSpecification getSpecificGCourseRequestSpecInvalid(String baseUri, String path, String invalidId) {
+    public static RequestSpecification getSpecificCourseRequestSpecInvalid(String baseUri, String path, String invalidId) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
