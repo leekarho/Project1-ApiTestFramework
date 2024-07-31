@@ -12,7 +12,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class CommonSteps {
     PostLoginRequest loginPayload;
-
     ContextTest context;
 
     public CommonSteps(ContextTest context) {
@@ -35,6 +34,5 @@ public class CommonSteps {
                 .thenReturn();
         context.bearerToken = context.response.jsonPath().getString("token");
     }
-
 
 }
