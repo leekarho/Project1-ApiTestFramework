@@ -14,5 +14,5 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
       - name: Build and test with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn clean verify
         working-directory: .
